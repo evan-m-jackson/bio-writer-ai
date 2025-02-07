@@ -6,7 +6,7 @@ const secretKey = process.env.SESSION_SECRET;
 const encodedKey = new TextEncoder().encode(secretKey);
 
 export async function encrypt(payload: any) {
-  const { SignJWT } = await import('jose');
+  const { SignJWT } = await import("jose");
   return new SignJWT(payload)
     .setProtectedHeader({ alg: "HS256" })
     .setIssuedAt()
@@ -16,7 +16,7 @@ export async function encrypt(payload: any) {
 
 export async function decrypt(session: string | undefined = "") {
   try {
-    const { jwtVerify } = await import('jose'); 
+    const { jwtVerify } = await import("jose");
     const { payload } = await jwtVerify(session, encodedKey, {
       algorithms: ["HS256"],
     });
@@ -28,12 +28,12 @@ export async function decrypt(session: string | undefined = "") {
 
 export async function createSession(user: User) {
   const expiresAt = new Date(Date.now() + 7 * 24 * 60 * 60 * 1000);
-  const id = user.id
-  const firstName = user.firstName
-  const lastName = user.lastName
-  const email = user.email
+  const id = user.id;
+  const firstName = user.firstName;
+  const lastName = user.lastName;
+  const email = user.email;
 
-  const session = await encrypt({ id, firstName, lastName, email, expiresAt, });
+  const session = await encrypt({ id, firstName, lastName, email, expiresAt });
   const cookieStore = await cookies();
 
   cookieStore.set("session", session, {

@@ -9,7 +9,7 @@ export default async function middleware(request: NextRequest) {
   const isProtectedRoute = protectedRoutes.includes(path);
   const cookie = (await cookies()).get("session")?.value;
   const session = await decrypt(cookie);
-  console.log(session)
+  console.log(session);
   if (isProtectedRoute && !session?.id) {
     return NextResponse.redirect(
       new URL(`/signin?next=${path}`, request.nextUrl),

@@ -8,19 +8,18 @@ import React, { act } from "react";
 jest.mock("axios");
 const mockedAxios = axios as jest.Mocked<typeof axios>;
 jest.mock("next/navigation", () => {
-  return ({
+  return {
     __esModule: true,
     useRouter: () => ({
       push: jest.fn(),
       replace: jest.fn(),
-      prefetch: jest.fn()
+      prefetch: jest.fn(),
     }),
     useSearchParams: () => ({
-      get: () => {}
-    })
-  })
+      get: () => {},
+    }),
+  };
 });
-
 
 describe("Signin", () => {
   it("renders Sign In heading", () => {
@@ -131,8 +130,7 @@ describe("Signin", () => {
 
     mockedAxios.get.mockResolvedValue({
       status: 200,
-      data: 
-      {
+      data: {
         user_id: 1,
         first_name: "Player",
         last_name: "One",

@@ -34,12 +34,12 @@ export default function Signin() {
             console.log(response);
             setError("");
             const path = searchParams.get("next");
-            console.log(path)
+            console.log(path);
             router.push(path ? path : "/");
           }
         })
         .catch((e) => {
-          console.log(e.message)
+          console.log(e.message);
           setError("There is a system error. Please try again soon");
         });
     }

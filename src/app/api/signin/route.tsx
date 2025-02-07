@@ -34,12 +34,12 @@ export async function GET(request: NextRequest) {
     const query = "SELECT * FROM users WHERE email = ($1)";
     const result = await conn.query(query, [search_email]);
     const user = result.rows[0];
-    console.log(user)
-    const id = user.user_id
-    const firstName = user.first_name
-    const lastName = user.last_name
-    const email = user.email
-    await createSession({id, firstName, lastName, email});
+    console.log(user);
+    const id = user.user_id;
+    const firstName = user.first_name;
+    const lastName = user.last_name;
+    const email = user.email;
+    await createSession({ id, firstName, lastName, email });
 
     return NextResponse.json(user);
   } catch (error: any) {
