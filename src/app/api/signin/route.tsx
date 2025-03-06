@@ -1,13 +1,11 @@
 import conn from "../../db";
 import { NextRequest, NextResponse } from "next/server";
 import { createSession } from "@/app/lib/session";
-import { User } from "@/types";
 
 export async function POST(request: NextRequest) {
   try {
     const current_date = new Date().toUTCString();
     const formData = await request.formData();
-    console.log(request.body);
     const query =
       "INSERT INTO users(first_name, last_name, email, password, created_at, modified_at) VALUES ($1, $2, $3, $4, $5, $5)";
     const values = [
@@ -34,7 +32,6 @@ export async function GET(request: NextRequest) {
     const query = "SELECT * FROM users WHERE email = ($1)";
     const result = await conn.query(query, [search_email]);
     const user = result.rows[0];
-    console.log(user);
     const id = user.user_id;
     const firstName = user.first_name;
     const lastName = user.last_name;

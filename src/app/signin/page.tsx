@@ -31,15 +31,12 @@ export default function Signin() {
           } else if (response.data.password != inputs.password) {
             setError("Password is incorrect.");
           } else {
-            console.log(response);
             setError("");
             const path = searchParams.get("next");
-            console.log(path);
             router.push(path ? path : "/");
           }
         })
         .catch((e) => {
-          console.log(e.message);
           setError("There is a system error. Please try again soon");
         });
     }
